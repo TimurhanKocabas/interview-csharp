@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using UrlShortenerService.Api.Endpoints.Url.Requests;
 using UrlShortenerService.Application.Url.Commands;
 using IMapper = AutoMapper.IMapper;
@@ -37,7 +37,8 @@ public class CreateShortUrlEndpoint : BaseEndpoint<CreateShortUrlRequest>
         var result = await Mediator.Send(
             new CreateShortUrlCommand
             {
-                Url = req.Url
+                Url = req.Url,
+                BaseReturnUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.Value}{HttpContext.Request.Path}",
             },
             ct
         );
