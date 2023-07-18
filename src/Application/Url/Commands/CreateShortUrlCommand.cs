@@ -54,7 +54,7 @@ public class CreateShortUrlCommandHandler : IRequestHandler<CreateShortUrlComman
             {
                 OriginalUrl = request.Url
             };
-            _context.Urls.Add(url);
+            await _context.Urls.AddAsync(url);
             await _context.SaveChangesAsync(cancellationToken);
         }
         return $"{request.BaseReturnUrl}/{_hashids.EncodeLong(url.Id)}";

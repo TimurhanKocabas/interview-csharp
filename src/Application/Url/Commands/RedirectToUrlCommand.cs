@@ -1,4 +1,4 @@
-using FluentValidation;
+﻿using FluentValidation;
 using HashidsNet;
 using MediatR;
 using UrlShortenerService.Application.Common.Interfaces;
@@ -33,7 +33,22 @@ public class RedirectToUrlCommandHandler : IRequestHandler<RedirectToUrlCommand,
 
     public async Task<string> Handle(RedirectToUrlCommand request, CancellationToken cancellationToken)
     {
-        await Task.CompletedTask;
-        throw new NotImplementedException();
+        long urlId = -1;
+        try
+        {
+            urlId = _hashids.DecodeSingleLong(request.Id);
+        }
+        catch (Exception ex)
+        {
+
+            throw new Exception("Id is not valid");
+        }
+        var urlEntity = await _context.Urls.FindAsync(urlId, cancellationToken);
+        if (urlEntity == null)
+        {
+            throw new Exception("URL doesn't exist");
+        }
+        return urlEntity.OriginalUrl;
+
     }
 }

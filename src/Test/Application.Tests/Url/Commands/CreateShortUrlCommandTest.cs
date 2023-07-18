@@ -30,7 +30,6 @@ public class CreateShortUrlCommandTest
     public async Task DoesCreateShortUrlCommandHandlerWork()
     {
         //Arrange
-
         CreateShortUrlCommand command = new CreateShortUrlCommand()
         {
             Url = "https://www.enpal.de/",

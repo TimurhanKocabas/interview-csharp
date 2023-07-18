@@ -1,7 +1,8 @@
-using FastEndpoints.Swagger;
+﻿using FastEndpoints.Swagger;
 using UrlShortenerService.Api.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddFastEndpoints();
 
 if (builder.Environment.IsDevelopment())
 {
